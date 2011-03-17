@@ -38,6 +38,7 @@ class Scraper
         when LINE_IDX_ADR_1;   entry[:adr_1]   = line
         when LINE_IDX_ADR_2;   entry[:adr_2]   = line
         when LINE_IDX_PHONE;   entry[:phone]   = line
+          raise "#{line} was not a valid phone number" unless Scraper.phone_number?(line)
         when LINE_IDX_DESC;    entry[:desc]    = line
           done = true
         end
@@ -48,6 +49,11 @@ class Scraper
     end while !done
     
     entry
+  end
+  
+  # phone number regex (src: http://blog.stevenlevithan.com/archives/validate-phone-number#r4-2-v-inline)
+  def self.phone_number?(txt)
+    txt =~ /^(?:\(?([0-9]{3})\)?[-. ]?)?([0-9]{3})[-. ]?([0-9]{4})$/
   end
 end
 
