@@ -42,8 +42,7 @@ class Scraper
           done = true
         end
 
-        #update line index
-        line_idx += 1
+        line_idx += 1 
       end
       
     end while !done
