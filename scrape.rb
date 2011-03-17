@@ -6,6 +6,8 @@ class Scraper
   BUS_TYPES = ["Contractor/Installer","Distributor","Financial Company or Financial Consultant","Law Firm","Research Laboratory","Manufacturer/Supplier","Utility","Project Developer (Architects, planners, consultants, and builders of solar projects)","Other (non-financial)","Commercial System User","Solar Winery/Brewery/Distillery"]
   STATES = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"]
   
+  
+  
   LINE_IDX_NAME    = 0
   LINE_IDX_URL     = 1
   LINE_IDX_CONTACT = 2
