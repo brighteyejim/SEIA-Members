@@ -32,20 +32,13 @@ class Scraper
         
         #classify line and add to the hash based on line index
         case line_idx
-        when LINE_IDX_NAME
-          entry[:name] = line
-        when LINE_IDX_URL
-          entry[:url] = line
-        when LINE_IDX_CONTACT
-          entry[:contact] = line
-        when LINE_IDX_ADR_1
-          entry[:adr_1] = line
-        when LINE_IDX_ADR_2
-          entry[:adr_2] = line
-        when LINE_IDX_PHONE
-          entry[:phone] = line
-        when LINE_IDX_DESC
-          entry[:desc] = line
+        when LINE_IDX_NAME;    entry[:name]    = line
+        when LINE_IDX_URL;     entry[:url]     = line
+        when LINE_IDX_CONTACT; entry[:contact] = line
+        when LINE_IDX_ADR_1;   entry[:adr_1]   = line
+        when LINE_IDX_ADR_2;   entry[:adr_2]   = line
+        when LINE_IDX_PHONE;   entry[:phone]   = line
+        when LINE_IDX_DESC;    entry[:desc]    = line
           done = true
         end
 
