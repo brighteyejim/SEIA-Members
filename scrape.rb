@@ -18,13 +18,36 @@ class Scraper
     
     # set form values
     form = page.form("search")
-    form["filter_equal.member_type.name"] = 'Distributor'
+    form["filter_equal.member_type.name"] = 'Contractor/Installer'
     form["filter_equal.dm_seia_organization.address.state"] = 'PA'
     form["filter_like.dm_seia_organization.description"] = ''
     
     # submit form, get results page
     result_page = agent.submit(form, form.buttons.first)
-    puts result_page.body
+    
+    # scrape entries from results page
+    entries = []
+    e = {}
+    result_page.search('.results p').each do |p|
+      className = p.attr('class')
+      
+      # 1st/last in sequence for this entry?
+      is_first = className == 'company'
+      is_last  = className == 'description'
+      
+      # puts "#{p.attr('class')} => #{p.text}"
+      
+      e = {} if is_first        #new entry if we just started
+      e[className] = p.text.chomp #get next tag in sequence
+      entries << e if is_last   #push the entry if we're done
+    end
+    
+    # output each entry
+    entries.each_with_index do |e, i|
+      e.each_pair do |k, v|
+        puts "#{k} => #{v}"
+      end
+    end
   end
   
   # phone number regex (src: http://blog.stevenlevithan.com/archives/validate-phone-number#r4-2-v-inline)
