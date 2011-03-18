@@ -1,18 +1,7 @@
-GIT
-  remote: git@github.com:jonathanb/comma.git
-  revision: bfa2d38d4ef4b046071a3196dbed8bfa7466b04c
-  specs:
-    comma (0.4.1)
-      activesupport (>= 2.2.2)
-      comma
-      i18n
-
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (3.0.5)
     diff-lcs (1.1.2)
-    i18n (0.5.0)
     mechanize (1.0.0)
       nokogiri (>= 1.2.1)
     nokogiri (1.4.4)
@@ -29,8 +18,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
-  comma!
-  i18n
   mechanize
   rspec

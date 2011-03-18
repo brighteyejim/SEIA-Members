@@ -2,22 +2,6 @@ require "rubygems"
 require "bundler/setup"
 Bundler.require(:default)
 
-# hash wrapper class for the CSV file DSL called "comma"
-class Entry
-  attr_accessor :company, :website, :name, :addr1, :addr2, :addr_rest, :phone, :description
-  
-  comma do
-    company
-    website
-    name
-    addr1
-    addr2
-    addr_rest
-    phone
-    description
-  end
-end
-
 class Scraper
   # form field names
   FIELDNAME_NAME     = "filter_equal.member_type.name"
@@ -28,7 +12,11 @@ class Scraper
   FIELDVALS_BUS_TYPES = ["Contractor/Installer","Distributor","Financial Company or Financial Consultant","Law Firm","Research Laboratory","Manufacturer/Supplier","Utility","Project Developer (Architects, planners, consultants, and builders of solar projects)","Other (non-financial)","Commercial System User","Solar Winery/Brewery/Distillery"]
   FIELDVALS_STATES    = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"]
   
+  CLASS_NAMES = ['company', 'website', 'name', 'addr1', 'addr2', 'addr_rest', 'phone', 'description']
+  
   SEIA_URL = "http://www.seia.org/cs/membership/member_directory"
+  
+  OUTPUT_FILENAME = "OUTPUT.csv"
   
   def self.scrape_page
     # setup user agent
@@ -49,11 +37,11 @@ class Scraper
     
     # scrape entries from results page
     entries = []
-    e = Entry.new
+    e = {}
     result_page.search('.results p').each do |p|
       className = p.attr('class')
 
-      break if className.nil?
+      next if className.nil?
       
       #make friendly for Ruby method names
       className.gsub!('-', '_')
@@ -63,18 +51,20 @@ class Scraper
       is_last  = className == 'description'
       
       #new entry if we just started
-      e = Entry.new if is_first          
+      e = {} if is_first          
       
       #get next tag in sequence
-      clean_txt = Scraper.sanitize_str(p.text)
-      e.send "#{className}=", clean_txt
+      e[className] = Scraper.sanitize_str(p.text)
       
       #push the entry if we're done
-      entries << e if is_last  
+      entries << e if is_last
     end
     
     # output to CSV file
-    entries.to_comma(:filename => "OUTPUT.csv")
+    File.open(OUTPUT_FILENAME, 'w') do |f|
+      f.puts CLASS_NAMES.join(',')
+      entries.each {|e| f.puts e.values.join(',')}
+    end
   end
   
   def self.sanitize_str(str)
