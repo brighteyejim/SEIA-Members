@@ -1,0 +1,3 @@
+* read in entries for one state (PA/NJ/etc)
+* divide entries for state into type (installer, developer, etc)
+* split up the addresses into state, zipcode, etc
