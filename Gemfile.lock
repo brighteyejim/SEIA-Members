@@ -19,5 +19,4 @@ PLATFORMS
 
 DEPENDENCIES
   mechanize
-  nokogiri
   rspec
