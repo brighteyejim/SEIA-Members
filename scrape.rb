@@ -1,6 +1,7 @@
 require "rubygems"
 require "bundler/setup"
 Bundler.require(:default)
+require 'csv'
 
 class Scraper
   # form field names
@@ -62,8 +63,14 @@ class Scraper
     
     # output to CSV file
     File.open(OUTPUT_FILENAME, 'w') do |f|
-      f.puts CLASS_NAMES.join(',')
-      entries.each {|e| f.puts e.values.join(',')}
+
+    end
+    
+    CSV.open(OUTPUT_FILENAME, "wb") do |csv|
+      csv << CLASS_NAMES
+      entries.each do |e|
+        csv << CLASS_NAMES.map {|c| e[c]}
+      end
     end
   end
   
