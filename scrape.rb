@@ -117,17 +117,4 @@ end
 # RSpec tests
 if __FILE__ == $PROGRAM_NAME
   Scraper.scrape_page
-  
-  # Bundler.require(:test)
-  #   
-  # describe Scraper, '#scrape_page' do
-  #   before(:each) do
-  #     file = File.open("sample_data/entry")
-  #     @entry = Scraper.parse_entry(file)
-  #   end
-  #   
-  #   it "reads in a sample entry's company name" do
-  #     @entry[:name].should == "Advanced Solar Industries, LLC"
-  #   end
-  # end
 end
