@@ -62,10 +62,6 @@ class Scraper
     end
     
     # output to CSV file
-    File.open(OUTPUT_FILENAME, 'w') do |f|
-
-    end
-    
     CSV.open(OUTPUT_FILENAME, "wb") do |csv|
       csv << CLASS_NAMES
       entries.each do |e|
